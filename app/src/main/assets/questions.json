@@ -1,0 +1,1013 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": "embedded-1-01",
+      "category": "C 语言",
+      "title": "在嵌入式 C 中，volatile 最主要的作用是什么？",
+      "options": [
+        "自动关闭中断",
+        "让编译器按实现规定保留对该对象的可观察访问",
+        "保证自增操作是原子的",
+        "替代线程同步机制"
+      ],
+      "answer": 1,
+      "explanation": "volatile 常用于内存映射寄存器，不能保证原子性，也不能替代锁或内存屏障。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-02",
+      "category": "C 语言",
+      "title": "const int *p 表示什么？",
+      "options": [
+        "p 是空指针",
+        "不能通过 p 修改所指向的 int",
+        "p 指向的对象一定在 ROM",
+        "p 本身不能改变"
+      ],
+      "answer": 1,
+      "explanation": "const 修饰所指对象；p 可以改指向。int * const p 才限制指针本身。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-03",
+      "category": "C 语言",
+      "title": "将无符号整数 x 的第 n 位清零，应使用哪种表达式？假设位移合法。",
+      "options": [
+        "x |= (1u << n)",
+        "x ^= (1u << n)",
+        "x &= (1u << n)",
+        "x &= ~(1u << n)"
+      ],
+      "answer": 3,
+      "explanation": "先构造仅第 n 位为 0 的掩码，再按位与；异或是翻转，而不是清零。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-04",
+      "category": "C 语言",
+      "title": "sizeof(char) 在标准 C 中的结果是什么？",
+      "options": [
+        "等于 sizeof(int)",
+        "恒为 1",
+        "取决于指针宽度",
+        "恒为 8"
+      ],
+      "answer": 1,
+      "explanation": "sizeof 的单位是 C 的字节，char 的大小定义为 1；一个字节有多少位由 CHAR_BIT 决定。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-05",
+      "category": "C 语言",
+      "title": "函数 void f(int a[10]) 中，sizeof(a) 得到什么？",
+      "options": [
+        "固定为 10",
+        "int 指针的大小",
+        "数组元素的总数",
+        "10 个 int 的大小"
+      ],
+      "answer": 1,
+      "explanation": "数组形参会调整为指针形参，数组长度应通过额外参数传入。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-06",
+      "category": "C 语言",
+      "title": "对标准 C 的有符号整数执行溢出运算，其行为是什么？",
+      "options": [
+        "未定义行为",
+        "保证按模回绕",
+        "保证产生异常",
+        "保证饱和到最大值"
+      ],
+      "answer": 0,
+      "explanation": "无符号算术按相应模数运算；有符号溢出不能依赖回绕结果。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-07",
+      "category": "C 语言",
+      "title": "memcpy 与 memmove 的主要区别是什么？",
+      "options": [
+        "memcpy 自动检查缓冲区长度",
+        "memmove 只复制字符串",
+        "memcpy 自动分配内存",
+        "memmove 支持源和目标区域重叠"
+      ],
+      "answer": 3,
+      "explanation": "内存区域重叠时应使用 memmove；memcpy 的重叠复制行为未定义。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-08",
+      "category": "C 语言",
+      "title": "宏 #define SQR(x) ((x)*(x)) 接收 i++ 时有什么风险？",
+      "options": [
+        "宏一定无法编译",
+        "宏自动转为函数调用",
+        "参数会被求值多次，并可能引发未定义行为",
+        "i 一定只增加一次"
+      ],
+      "answer": 2,
+      "explanation": "展开包含对 i 的多次修改，不能把有副作用的表达式随意传给重复使用参数的宏。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-09",
+      "category": "C 语言",
+      "title": "返回局部自动变量地址有什么问题？",
+      "options": [
+        "函数返回后该对象生命周期结束",
+        "编译器会永久保存该对象",
+        "返回地址会自动变成 NULL",
+        "该变量自动转为静态变量"
+      ],
+      "answer": 0,
+      "explanation": "调用者不能通过该地址访问已结束生命周期的局部对象。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-10",
+      "category": "C 语言",
+      "title": "static 修饰文件作用域函数时，主要改变什么？",
+      "options": [
+        "使函数具有内部链接",
+        "使函数只执行一次",
+        "使函数不能被调用",
+        "使函数成为中断函数"
+      ],
+      "answer": 0,
+      "explanation": "内部链接将标识符的可见链接范围限制在当前翻译单元。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-11",
+      "category": "C 语言",
+      "title": "struct 可能出现成员间填充，主要是为了什么？",
+      "options": [
+        "为每个成员增加结束符",
+        "保证跨平台二进制布局一致",
+        "自动压缩数据",
+        "满足成员的对齐要求"
+      ],
+      "answer": 3,
+      "explanation": "结构体可能含内部和尾部填充，不能直接假定 sizeof 等于成员大小之和。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-1-12",
+      "category": "C 语言",
+      "title": "多任务同时执行共享计数器 count++，仅加 volatile 是否足够？",
+      "options": [
+        "不够，需要合适的原子或同步机制",
+        "足够，因为 volatile 会加锁",
+        "足够，因为自增只对应一条 C 语句",
+        "足够，因为编译器会关闭中断"
+      ],
+      "answer": 0,
+      "explanation": "读、改、写可能被打断；volatile 解决的不是并发互斥问题。",
+      "source": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"
+    },
+    {
+      "id": "embedded-2-01",
+      "category": "MCU 与中断",
+      "title": "Cortex-M 的 NVIC 主要负责什么？",
+      "options": [
+        "管理中断的使能、挂起与优先级",
+        "替代 DMA 传输",
+        "生成全部外设时钟",
+        "管理文件系统"
+      ],
+      "answer": 0,
+      "explanation": "NVIC 是嵌套向量中断控制器，支持中断优先级和嵌套管理。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-02",
+      "category": "MCU 与中断",
+      "title": "Cortex-M 中，已实现的中断优先级数值越小，通常意味着什么？",
+      "options": [
+        "紧迫程度越高",
+        "中断一定被屏蔽",
+        "中断处理越慢",
+        "紧迫程度越低"
+      ],
+      "answer": 0,
+      "explanation": "数值优先级与紧迫程度方向相反；实际有效优先级位数由芯片实现决定。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-03",
+      "category": "MCU 与中断",
+      "title": "在典型 Cortex-M 启动向量表中，最前面的两个字通常是什么？",
+      "options": [
+        "堆地址和文件入口",
+        "初始主栈指针值和复位处理函数地址",
+        "主频和波特率",
+        "DMA 地址和长度"
+      ],
+      "answer": 1,
+      "explanation": "CPU 复位时从向量表加载初始 MSP 和复位入口。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-04",
+      "category": "MCU 与中断",
+      "title": "中断服务程序较合适的设计方式是什么？",
+      "options": [
+        "等待用户输入后退出",
+        "在其中无限循环轮询",
+        "无条件调用阻塞式等待",
+        "快速处理必要状态，将耗时工作延后"
+      ],
+      "answer": 3,
+      "explanation": "ISR 应尽量短小，延后工作可交给任务、事件或工作队列。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-05",
+      "category": "MCU 与中断",
+      "title": "看门狗的主要用途是什么？",
+      "options": [
+        "提高 Flash 容量",
+        "软件未及时喂狗时触发复位或预设动作",
+        "提高串口波特率",
+        "代替所有异常处理"
+      ],
+      "answer": 1,
+      "explanation": "看门狗用于检测程序失去正常进展，喂狗点应能反映关键流程健康状态。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-06",
+      "category": "MCU 与中断",
+      "title": "DMA 的主要优势是什么？",
+      "options": [
+        "完全消除总线竞争",
+        "让所有访问都变成原子的",
+        "减少 CPU 逐字节搬运数据的负担",
+        "替代缓存一致性处理"
+      ],
+      "answer": 2,
+      "explanation": "DMA 可独立搬运数据，但仍需处理缓存、缓冲区生命周期和并发访问。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-07",
+      "category": "MCU 与中断",
+      "title": "机械按键需要消抖，主要原因是什么？",
+      "options": [
+        "触点切换会产生短时间的多次跳变",
+        "CPU 主频总是太低",
+        "GPIO 无法读取低电平",
+        "按键只能输出模拟信号"
+      ],
+      "answer": 0,
+      "explanation": "可使用硬件滤波或定时的软件状态确认，避免一次按键被识别成多次。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-08",
+      "category": "MCU 与中断",
+      "title": "开漏输出要可靠输出高电平，通常需要什么？",
+      "options": [
+        "把两个推挽输出直接相连",
+        "合适的上拉电阻",
+        "禁用输入缓冲器",
+        "把引脚接地"
+      ],
+      "answer": 1,
+      "explanation": "开漏只能主动拉低，总线高电平通常由上拉提供。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-09",
+      "category": "MCU 与中断",
+      "title": "GPIO 配成浮空输入且没有外部驱动时，可能出现什么？",
+      "options": [
+        "自动启用看门狗",
+        "始终稳定为高电平",
+        "读数不稳定并易受干扰",
+        "始终稳定为低电平"
+      ],
+      "answer": 2,
+      "explanation": "悬空输入缺乏确定电位，应按电路需要使用上拉、下拉或外部驱动。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-10",
+      "category": "MCU 与中断",
+      "title": "外设中断发生后，通常需要按手册处理什么？",
+      "options": [
+        "删除向量表",
+        "对应外设的中断状态与清除条件",
+        "重写全部 Flash",
+        "关闭全部系统时钟"
+      ],
+      "answer": 1,
+      "explanation": "仅清 NVIC 挂起位往往不能消除外设持续的中断源，需遵循芯片手册。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-11",
+      "category": "MCU 与中断",
+      "title": "在非缓存一致性的带 D-cache MCU 上，DMA 从内存发送数据前通常要关注什么？",
+      "options": [
+        "按平台要求清理相关缓存并确保可见性",
+        "一定无需处理缓存",
+        "删除 DMA 缓冲区",
+        "只修改 volatile 即可"
+      ],
+      "answer": 0,
+      "explanation": "CPU 缓存里的脏数据可能尚未写入 RAM；还需考虑屏障、对齐及平台 API。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-2-12",
+      "category": "MCU 与中断",
+      "title": "采样电压为 0～Vref 的理想 N 位单极性 ADC，通常有多少个不同输出码？",
+      "options": [
+        "2 的 N 次方",
+        "N 的平方",
+        "N 个",
+        "2N 个"
+      ],
+      "answer": 0,
+      "explanation": "输出码通常从 0 到 2^N−1；分辨率不等同于实际精度。",
+      "source": "https://arm-software.github.io/CMSIS_6/latest/Core/group__NVIC__gr.html"
+    },
+    {
+      "id": "embedded-3-01",
+      "category": "FreeRTOS",
+      "title": "FreeRTOS 任务等待一个尚未满足、带超时的队列接收条件时，通常进入什么状态？",
+      "options": [
+        "阻塞态",
+        "始终占满 CPU 的运行态",
+        "永久删除态",
+        "中断态"
+      ],
+      "answer": 0,
+      "explanation": "阻塞态任务不消耗 CPU 等待，条件满足或超时后才转为就绪。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-02",
+      "category": "FreeRTOS",
+      "title": "在启用抢占的单核 FreeRTOS 中，通常优先运行哪类任务？",
+      "options": [
+        "栈空间最大的任务",
+        "最先创建的任务",
+        "名字最短的任务",
+        "最高优先级的就绪任务"
+      ],
+      "answer": 3,
+      "explanation": "调度以就绪状态和优先级为基础，相同优先级行为还受时间片等配置影响。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-03",
+      "category": "FreeRTOS",
+      "title": "与 vTaskDelay 相比，xTaskDelayUntil 更适合什么？",
+      "options": [
+        "等待任意互斥锁",
+        "在 ISR 中延时",
+        "按固定参考节拍执行周期任务",
+        "立即删除任务"
+      ],
+      "answer": 2,
+      "explanation": "相对延时会叠加执行耗时；DelayUntil 按上一次唤醒参考时刻计算周期。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-04",
+      "category": "FreeRTOS",
+      "title": "在 FreeRTOS 中断中发送队列数据，应优先使用哪类 API？",
+      "options": [
+        "任意 malloc 调用",
+        "对应的 FromISR API",
+        "可无限阻塞的普通 API",
+        "任务删除 API"
+      ],
+      "answer": 1,
+      "explanation": "FromISR API 不阻塞，还应按端口规范处理高优先级任务唤醒和中断优先级限制。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-05",
+      "category": "FreeRTOS",
+      "title": "FreeRTOS mutex 与二值信号量的一项重要区别是什么？",
+      "options": [
+        "二值信号量一定有优先级继承",
+        "mutex 可在 ISR 内持有并阻塞",
+        "mutex 没有所有权语义",
+        "mutex 提供优先级继承机制"
+      ],
+      "answer": 3,
+      "explanation": "互斥锁用于任务间资源保护，拥有所有权和优先级继承；不用于 ISR。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-06",
+      "category": "FreeRTOS",
+      "title": "优先级反转的典型情形是什么？",
+      "options": [
+        "空闲任务没有运行",
+        "高优先级任务等待低优先级任务持有的资源",
+        "所有任务都同时阻塞",
+        "高优先级任务主动删除自己"
+      ],
+      "answer": 1,
+      "explanation": "中优先级任务可能继续抢占低优先级持锁任务，从而延长高优先级任务的等待。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-07",
+      "category": "FreeRTOS",
+      "title": "标准 FreeRTOS 队列默认如何保存一个入队项？",
+      "options": [
+        "总是深拷贝指针指向的全部对象",
+        "复制配置大小的数据内容",
+        "自动把对象存入 Flash",
+        "只保存变量名"
+      ],
+      "answer": 1,
+      "explanation": "若队列项是指针，复制的是指针值；所指对象的生命周期仍由应用管理。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-08",
+      "category": "FreeRTOS",
+      "title": "任务栈溢出的正确预防方式是什么？",
+      "options": [
+        "把所有变量都声明 volatile",
+        "只增加任务优先级",
+        "禁止所有函数调用",
+        "测量栈余量、合理配置并启用溢出检测"
+      ],
+      "answer": 3,
+      "explanation": "结合高水位观测、最坏调用路径、局部数组及库函数开销评估栈需求。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-09",
+      "category": "FreeRTOS",
+      "title": "软件定时器回调通常运行在什么上下文？",
+      "options": [
+        "每个定时器专属任务",
+        "独立的硬件中断上下文",
+        "定时器服务任务上下文",
+        "编译器上下文"
+      ],
+      "answer": 2,
+      "explanation": "多个软件定时器共享服务任务，回调应短小，避免阻塞该任务。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-10",
+      "category": "FreeRTOS",
+      "title": "调用 xQueueSend 后，接收者能否立即读取栈上对象的指针？",
+      "options": [
+        "总是安全，因为队列会深拷贝对象",
+        "只有对象在接收者使用期间始终有效才安全",
+        "只要指针加 const 就安全",
+        "总是安全，因为函数返回不影响栈"
+      ],
+      "answer": 1,
+      "explanation": "传指针需明确所有权和生命周期，否则可能形成悬空指针。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-11",
+      "category": "FreeRTOS",
+      "title": "空闲任务长期无法获得运行机会，可能影响什么？",
+      "options": [
+        "队列自动无限扩容",
+        "空闲钩子及部分已删除任务的资源回收",
+        "中断向量表自动更新",
+        "所有中断优先级自动降低"
+      ],
+      "answer": 1,
+      "explanation": "一直忙等的高优先级任务可能饿死空闲任务；删除其他任务后的清理可能依赖空闲任务。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-3-12",
+      "category": "FreeRTOS",
+      "title": "在启用中断优先级约束的 Cortex-M FreeRTOS 端口中，调用 FromISR 前还应检查什么？",
+      "options": [
+        "ISR 是否调用过 printf",
+        "ISR 优先级是否符合 configMAX_SYSCALL_INTERRUPT_PRIORITY 规则",
+        "ISR 是否位于 main.c",
+        "ISR 名字是否以 FreeRTOS 开头"
+      ],
+      "answer": 1,
+      "explanation": "过高紧迫程度的 ISR 不应调用内核 API；具体有效位与优先级编码要按端口配置确认。",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/00-RTOS-fundamentals"
+    },
+    {
+      "id": "embedded-4-01",
+      "category": "嵌入式 Linux",
+      "title": "Linux 设备驱动中的 copy_to_user 主要用于什么？",
+      "options": [
+        "复制整个内核镜像",
+        "替代所有内存分配",
+        "将文件写入 U-Boot",
+        "将内核数据安全地复制到用户地址空间"
+      ],
+      "answer": 3,
+      "explanation": "用户指针不能当作普通内核指针直接解引用，应使用相应用户访问 API。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-02",
+      "category": "嵌入式 Linux",
+      "title": "在 Linux 原子上下文中，通常不能做什么？",
+      "options": [
+        "进行简单整数计算",
+        "访问有效内核地址",
+        "执行可能睡眠的操作",
+        "读取局部变量"
+      ],
+      "answer": 2,
+      "explanation": "中断或持自旋锁等原子上下文不能睡眠，需选合适的 API 和分配标志。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-03",
+      "category": "嵌入式 Linux",
+      "title": "Linux 自旋锁主要适合哪种场景？",
+      "options": [
+        "保护短时间且不能睡眠的临界区",
+        "替代进程间所有通信",
+        "包围可能阻塞的文件读取",
+        "长时间等待用户输入"
+      ],
+      "answer": 0,
+      "explanation": "自旋等待会消耗 CPU，持锁区应短小且不调用睡眠操作。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-04",
+      "category": "嵌入式 Linux",
+      "title": "设备树的主要作用是什么？",
+      "options": [
+        "直接执行所有驱动代码",
+        "描述硬件拓扑、地址和配置等信息",
+        "保存应用程序成绩",
+        "替代内核调度器"
+      ],
+      "answer": 1,
+      "explanation": "设备树将许多板级硬件描述从驱动代码中分离，驱动据此匹配和获取资源。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-05",
+      "category": "嵌入式 Linux",
+      "title": "设备树中的 compatible 属性通常用于什么？",
+      "options": [
+        "帮助设备与驱动匹配",
+        "设置用户密码",
+        "决定 C 类型大小",
+        "保证所有硬件二进制兼容"
+      ],
+      "answer": 0,
+      "explanation": "驱动提供匹配表，内核根据 compatible 等信息选择合适驱动。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-06",
+      "category": "嵌入式 Linux",
+      "title": "交叉编译工具链的典型特征是什么？",
+      "options": [
+        "编译结果与架构无关",
+        "不需要头文件或库",
+        "在主机上生成面向另一目标平台的程序",
+        "只能在目标板上运行"
+      ],
+      "answer": 2,
+      "explanation": "必须匹配目标架构、ABI 及所用运行库，不能只看源码语言。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-07",
+      "category": "嵌入式 Linux",
+      "title": "Linux 中，进程与同一进程内多个线程的一项常见区别是什么？",
+      "options": [
+        "不同进程总共享全部变量",
+        "线程不能被调度",
+        "线程没有自己的执行栈",
+        "同进程线程共享虚拟地址空间"
+      ],
+      "answer": 3,
+      "explanation": "线程通常共享地址空间和文件等资源，但拥有自己的栈和调度执行状态。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-08",
+      "category": "嵌入式 Linux",
+      "title": "open 返回的非负整数通常是什么？",
+      "options": [
+        "文件大小",
+        "物理地址",
+        "内核线程 ID",
+        "文件描述符"
+      ],
+      "answer": 3,
+      "explanation": "文件描述符是进程访问已打开文件或设备等对象的句柄。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-09",
+      "category": "嵌入式 Linux",
+      "title": "read 返回 0，在普通文件读取中通常表示什么？",
+      "options": [
+        "数据长度无限",
+        "已到文件末尾",
+        "一定发生权限错误",
+        "一定读取到一个零字节"
+      ],
+      "answer": 1,
+      "explanation": "read 返回实际读取字节数；错误通常返回 -1 并设置 errno，具体设备语义可能不同。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-10",
+      "category": "嵌入式 Linux",
+      "title": "字符设备的 file_operations 主要提供什么？",
+      "options": [
+        "read、write、open 等操作的回调",
+        "设备树编译器",
+        "CPU 微码更新",
+        "文件系统的完整源码"
+      ],
+      "answer": 0,
+      "explanation": "驱动通过回调实现设备文件操作，注册和生命周期也必须正确管理。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-11",
+      "category": "嵌入式 Linux",
+      "title": "Linux 驱动处理中断的常见原则是什么？",
+      "options": [
+        "硬中断只做必要工作，耗时操作延后",
+        "把全部业务放在硬中断中",
+        "在硬中断中读取用户输入",
+        "在硬中断中无限等待互斥锁"
+      ],
+      "answer": 0,
+      "explanation": "可按需求采用线程化中断或工作队列等机制，注意不同上下文是否允许睡眠。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-4-12",
+      "category": "嵌入式 Linux",
+      "title": "U-Boot 在常见嵌入式 Linux 启动链中承担什么角色？",
+      "options": [
+        "作为用户界面的唯一渲染器",
+        "初始化必要硬件并加载内核等启动组件",
+        "直接保证所有应用无 bug",
+        "替代 Linux 所有系统调用"
+      ],
+      "answer": 1,
+      "explanation": "引导程序负责启动准备，具体链路可能还有 ROM、SPL、可信固件等阶段。",
+      "source": "https://docs.kernel.org/driver-api/basics.html"
+    },
+    {
+      "id": "embedded-5-01",
+      "category": "通信接口",
+      "title": "I²C 总线 SDA、SCL 通常采用哪种电气形式？",
+      "options": [
+        "只能用模拟输入",
+        "必须接 RS-232 电平",
+        "所有设备始终推挽驱动",
+        "开漏或开集并配上拉"
+      ],
+      "answer": 3,
+      "explanation": "开漏允许多个设备共享总线，高电平由上拉产生，电阻与总线电容影响上升时间。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-02",
+      "category": "通信接口",
+      "title": "I²C 的 START 条件是什么？",
+      "options": [
+        "SDA 为高时 SCL 从高变低",
+        "SCL 为低时 SDA 从低变高",
+        "两线同时保持低电平一秒",
+        "SCL 为高时 SDA 从高变低"
+      ],
+      "answer": 3,
+      "explanation": "SCL 为高时 SDA 的特定边沿定义 START 或 STOP；普通数据在时钟低期间改变。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-03",
+      "category": "通信接口",
+      "title": "I²C 在每传输 8 位后，通常还有什么？",
+      "options": [
+        "一个 ACK/NACK 时钟位",
+        "必定立即复位",
+        "固定 32 位 CRC",
+        "一个 UART 停止位"
+      ],
+      "answer": 0,
+      "explanation": "第九个时钟用于应答；ACK 为低，NACK 为高，主从角色随读写阶段变化。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-04",
+      "category": "通信接口",
+      "title": "SPI 的 CPOL 和 CPHA 共同决定什么？",
+      "options": [
+        "串口停止位数量",
+        "帧校验多项式",
+        "设备 IP 地址",
+        "时钟空闲电平和数据采样时序"
+      ],
+      "answer": 3,
+      "explanation": "主从双方模式必须匹配，才能在正确时钟边沿采样数据。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-05",
+      "category": "通信接口",
+      "title": "典型四线 SPI 相比 I²C 的一项特点是什么？",
+      "options": [
+        "只能半双工",
+        "使用独立的数据输入输出线，可全双工",
+        "一定内置设备地址和 ACK",
+        "一定只需要两根信号线"
+      ],
+      "answer": 1,
+      "explanation": "典型 SPI 使用时钟、片选和两个方向的数据线；具体器件也可能用三线变体。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-06",
+      "category": "通信接口",
+      "title": "UART 8N1 每传输一个数据字节，通常需要多少位时间？",
+      "options": [
+        "9 位时间",
+        "8 位时间",
+        "10 位时间",
+        "16 位时间"
+      ],
+      "answer": 2,
+      "explanation": "一个起始位、8 个数据位、无奇偶校验和一个停止位，共 10 位时间。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-07",
+      "category": "通信接口",
+      "title": "UART 通信双方波特率偏差过大，通常会导致什么？",
+      "options": [
+        "采样位置漂移并产生帧错误",
+        "一定不会受影响",
+        "自动完成重传",
+        "自动切换成 SPI"
+      ],
+      "answer": 0,
+      "explanation": "UART 通过起始位同步，双方时钟精度和容忍误差需要满足硬件要求。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-08",
+      "category": "通信接口",
+      "title": "RS-485 主要定义什么？",
+      "options": [
+        "所有设备必须使用的寄存器表",
+        "TCP 的拥塞算法",
+        "差分电气接口特性",
+        "唯一的应用层报文格式"
+      ],
+      "answer": 2,
+      "explanation": "RS-485 是电气层规范，Modbus RTU 等协议可以运行在其上。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-09",
+      "category": "通信接口",
+      "title": "经典 CAN 仲裁中，多个节点同时发送时通常怎样决定胜出者？",
+      "options": [
+        "随机丢弃所有帧",
+        "按仲裁字段逐位比较，显性位覆盖隐性位",
+        "按数据载荷长度",
+        "按设备上电时间"
+      ],
+      "answer": 1,
+      "explanation": "在可比较的相同帧格式中，较小标识符通常优先；完整仲裁还涉及帧格式等位。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-10",
+      "category": "通信接口",
+      "title": "Modbus RTU 的 CRC 通常用来做什么？",
+      "options": [
+        "加密报文内容",
+        "验证操作者身份",
+        "检测报文传输差错",
+        "保证物理总线绝无冲突"
+      ],
+      "answer": 2,
+      "explanation": "CRC 是差错检测机制，不提供加密或身份认证。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-11",
+      "category": "通信接口",
+      "title": "I²C 传输时 SDA 被设备持续拉低，合理的排查方向是什么？",
+      "options": [
+        "无限提高时钟频率",
+        "检查状态机、供电及按手册执行总线恢复",
+        "把上拉电阻直接短接到电源",
+        "假定软件永远不会影响总线"
+      ],
+      "answer": 1,
+      "explanation": "应先确认电气和设备状态，恢复方法需遵循控制器与从设备规范。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-5-12",
+      "category": "通信接口",
+      "title": "串口接收使用环形缓冲区时，最关键的边界问题之一是什么？",
+      "options": [
+        "只要 volatile 就能解决所有并发",
+        "把索引声明为字符串",
+        "区分空与满并处理读写索引并发",
+        "保证永远不会接收连续数据"
+      ],
+      "answer": 2,
+      "explanation": "可预留一个槽或维护计数等，明确溢出策略，并按执行上下文同步索引访问。",
+      "source": "https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+    },
+    {
+      "id": "embedded-6-01",
+      "category": "调试与存储",
+      "title": "SWD 通常最核心的两根调试信号是什么？",
+      "options": [
+        "SWDIO 和 SWCLK",
+        "SDA 和 SCL",
+        "MOSI 和 MISO",
+        "TX 和 RX"
+      ],
+      "answer": 0,
+      "explanation": "SWD 使用数据与时钟线，实际连线通常还需要地、参考电压以及按需复位信号。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-02",
+      "category": "调试与存储",
+      "title": "程序发生 HardFault 后，首先有价值的排查信息是什么？",
+      "options": [
+        "故障状态寄存器、异常栈帧中的 PC/LR 等",
+        "只增加串口波特率",
+        "只看应用图标",
+        "立即删除全部源码"
+      ],
+      "answer": 0,
+      "explanation": "结合 CFSR、HFSR 等平台支持的寄存器和堆栈回溯定位非法访问或异常原因。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-03",
+      "category": "调试与存储",
+      "title": "GDB 硬件观察点通常用于什么？",
+      "options": [
+        "自动修复全部越界写",
+        "在指定内存被访问或修改时暂停执行",
+        "提升 CPU 主频",
+        "替代 Flash 擦除"
+      ],
+      "answer": 1,
+      "explanation": "watch、rwatch、awatch 等能力依目标支持而定，硬件资源数量通常有限。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-04",
+      "category": "调试与存储",
+      "title": "Flash 写入与擦除常见的粒度关系是什么？",
+      "options": [
+        "写入前永远无需擦除",
+        "擦除通常按较大的扇区或块进行",
+        "每次擦除都只能一个 bit",
+        "所有 Flash 的粒度完全相同"
+      ],
+      "answer": 1,
+      "explanation": "擦除、编程粒度和允许位变化方向需查具体器件手册，不能按 RAM 的方式更新。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-05",
+      "category": "调试与存储",
+      "title": "对 Flash 频繁写同一位置的主要风险是什么？",
+      "options": [
+        "自动增加存储容量",
+        "永久提高访问速度",
+        "有限擦写寿命导致磨损",
+        "完全不会有影响"
+      ],
+      "answer": 2,
+      "explanation": "可使用磨损均衡、写入合并或合适的日志结构降低局部擦写频率。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-06",
+      "category": "调试与存储",
+      "title": "嵌入式固件中的 .bss 段通常保存什么？",
+      "options": [
+        "零初始化的静态存储期对象",
+        "必须从 Flash 逐字复制的非零初值",
+        "全部局部自动变量",
+        "运行时所有堆分配"
+      ],
+      "answer": 0,
+      "explanation": "启动代码通常把 .bss 清零；带非零初值的可写静态对象通常位于 .data。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-07",
+      "category": "调试与存储",
+      "title": "嵌入式固件中的 .data 段通常需要怎样初始化？",
+      "options": [
+        "永远无需处理",
+        "当作中断向量执行",
+        "全部置成随机数",
+        "将存储映像中的初值复制到运行地址"
+      ],
+      "answer": 3,
+      "explanation": "很多 MCU 把初值放在 Flash，运行时可写数据位于 RAM，由启动代码完成复制。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-08",
+      "category": "调试与存储",
+      "title": "栈和堆的一项常见区别是什么？",
+      "options": [
+        "堆永远不产生碎片",
+        "局部变量一定全部位于堆",
+        "栈永远不会溢出",
+        "栈常用于调用帧，堆用于动态分配"
+      ],
+      "answer": 3,
+      "explanation": "实现细节可不同，但栈深度和堆生命周期、碎片与分配失败都需要评估。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-09",
+      "category": "调试与存储",
+      "title": "固件升级中使用 A/B 分区的主要目的是什么？",
+      "options": [
+        "让所有升级都无需校验",
+        "让 Flash 擦写次数变为无限",
+        "替代数字签名",
+        "保留可回退映像，提高更新失败时的恢复能力"
+      ],
+      "answer": 3,
+      "explanation": "A/B 需要结合镜像校验、启动标志和回滚策略，断电场景也需设计。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-10",
+      "category": "调试与存储",
+      "title": "CRC 与数字签名在固件校验上的关键区别是什么？",
+      "options": [
+        "CRC 能证明发布者身份",
+        "两者都自动加密固件",
+        "签名可验证来源真实性，CRC 主要检测意外差错",
+        "签名只是更短的 CRC"
+      ],
+      "answer": 2,
+      "explanation": "安全启动需可信公钥或信任链；普通 CRC 不能抵抗有意篡改。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-11",
+      "category": "调试与存储",
+      "title": "对齐不足的内存访问在 MCU 上可能出现什么？",
+      "options": [
+        "视架构和访问类型产生异常或性能损失",
+        "自动扩大 RAM",
+        "只影响变量名称",
+        "所有平台都无条件支持"
+      ],
+      "answer": 0,
+      "explanation": "某些内核或指令不允许未对齐访问，协议解析时可用安全逐字节处理或 memcpy。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    },
+    {
+      "id": "embedded-6-12",
+      "category": "调试与存储",
+      "title": "排查偶发越界写，比反复复位更有效的方法是什么？",
+      "options": [
+        "把所有变量改为全局",
+        "结合边界检查、观察点和最小复现定位写入者",
+        "关闭全部编译警告",
+        "删除所有错误日志"
+      ],
+      "answer": 1,
+      "explanation": "先复现和缩小范围，再用保护区、检查工具或硬件观察点捕获首次破坏现场。",
+      "source": "https://sourceware.org/gdb/current/onlinedocs/gdb.html"
+    }
+  ]
+}
