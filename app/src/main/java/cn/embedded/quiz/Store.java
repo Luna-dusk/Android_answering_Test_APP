@@ -8,17 +8,10 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-// 【3／4：本地数据库】统一管理 embedded.db。MainActivity 通过它读写学习数据。
-// questions＝题库，mistakes＝错题，bookmarks＝收藏，attempts＝已交卷记录。
-// SQLiteOpenHelper 在首次打开数据库时创建表，在版本升高时调用升级方法。
 public final class Store extends SQLiteOpenHelper {
     // 保留 Android 上下文，用来读取应用安装包 assets 中的初始题库。
     private final Context context;
 
-    /**
-     * 创建数据库辅助对象。embedded.db 是数据库文件名，1 是当前数据库结构版本。
-     * new Store 本身不等于马上建表，真正打开数据库时才触发框架相应回调。
-     */
     public Store(Context context) {
         super(context,"embedded.db",null,1);
         this.context=context;
@@ -168,9 +161,9 @@ public final class Store extends SQLiteOpenHelper {
     }
 
     /**
-     * 导入一份完整题库，返回实际新增的题数，不包含跳过的已有 ID。
-     * 顺序：检查格式版本／题数 → 校验所有题目和文件内 ID → 开事务写入。
-     * 文件内重复 ID 报错；数据库已有 ID 跳过，不覆盖已有题目。
+     * 导入一份完整题库，返回实际新增的题数，不包含跳过的已有 ID
+     * 顺序：检查格式版本／题数 → 校验所有题目和文件内 ID → 开事务写入
+     * 文件内重复 ID 报错；数据库已有 ID 跳过，不覆盖已有题目
      */
     public int importQuestions(String input) throws JSONException {
         JSONObject root=new JSONObject(input);
